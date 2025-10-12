@@ -1,0 +1,36 @@
+{
+  "navigation": {
+    "home": "Domů",
+    "map": "Mapa",
+    "incinerators": "Spalovny",
+    "about": "O projektu"
+  },
+
+  "userPanel": {
+    "signIn": "Přihlásit",
+    "register": "Registrovat",
+    "signOut": "Odhlásit"
+  },
+  "incineratorDetails": {
+    "title": "Detail spalovny",
+    "nameAndId": "Spalovna {id}",
+    "operational": "V provozu",
+    "nonOperational": "Mimo provoz",
+    "basicInfoTitle": "Základní údaje",
+    "id": "ID",
+    "established": "Založeno",
+    "address": "Adresa",
+    "latitude": "Šířka",
+    "longitude": "Délka",
+    "unknown": "Neznámo",
+    "capacityTitle": "Kapacita",
+    "capacityUnit": "t/rok",
+    "descriptionTitle": "Popis",
+    "buildingsTitle": "Budovy",
+    "buildingNameAndId": "Budova #{id}",
+    "buildingFunction": "Funkce",
+    "buildingBuilt": "Postaveno",
+    "buildingArea": "Plocha (m²)",
+    "noSelection": "Vyberte spalovnu pro zobrazení detailů"
+  }
+}

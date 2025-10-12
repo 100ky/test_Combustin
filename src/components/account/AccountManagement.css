@@ -1,0 +1,55 @@
+/*
+ * Styles for AccountManagement component
+ * Contains animations and custom styles that complement Tailwind CSS.
+ */
+
+/* Animation for page load */
+.animate-on-load {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.5s ease-out,
+    transform 0.5s ease-out;
+}
+
+.loaded .animate-on-load {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered animation delay */
+.animate-on-load:nth-of-type(2) {
+  transition-delay: 0.1s;
+}
+
+/* Animation for adding/removing a social network item */
+.social-item {
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  max-height: 100px;
+  overflow: hidden;
+}
+
+.social-item.entering {
+  opacity: 0;
+  transform: translateY(-20px);
+  max-height: 0;
+}
+
+.social-item.removing {
+  opacity: 0;
+  transform: scale(0.9);
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  border-width: 0;
+}
+
+#add-social-btn {
+  transition: transform 0.2s ease-in-out;
+}
+
+#add-social-btn:hover {
+  transform: rotate(90deg) scale(1.1);
+}
