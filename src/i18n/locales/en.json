@@ -1,0 +1,36 @@
+{
+  "navigation": {
+    "home": "Home",
+    "map": "Map",
+    "incinerators": "Incinerators",
+    "about": "About"
+  },
+
+  "userPanel": {
+    "signIn": "Sign In",
+    "register": "Register",
+    "signOut": "Sign Out"
+  },
+  "incineratorDetails": {
+    "title": "Incinerator Details",
+    "nameAndId": "Incinerator {id}",
+    "operational": "Operational",
+    "nonOperational": "Non-operational",
+    "basicInfoTitle": "Basic Information",
+    "id": "ID",
+    "established": "Established",
+    "address": "Address",
+    "latitude": "Latitude",
+    "longitude": "Longitude",
+    "unknown": "Unknown",
+    "capacityTitle": "Capacity",
+    "capacityUnit": "t/year",
+    "descriptionTitle": "Description",
+    "buildingsTitle": "Buildings",
+    "buildingNameAndId": "Building #{id}",
+    "buildingFunction": "Function",
+    "buildingBuilt": "Built",
+    "buildingArea": "Area (m²)",
+    "noSelection": "Select an incinerator to see details"
+  }
+}
