@@ -4,25 +4,37 @@ import { useState, FC } from "react";
 import { Session } from "next-auth";
 import { Account } from "@/types/account";
 
+// --- TypeScript Interfaces ---
 interface PersonalInformationFormProps {
   initialData: Partial<Account>;
   session: Session | null;
   onFormChange: (updatedData: Partial<Account>) => void;
 }
 
+/**
+ * A form component for editing a user's personal information.
+ * It manages its own state for form fields and communicates changes to the parent component.
+ */
 const PersonalInformationForm: FC<PersonalInformationFormProps> = ({
   initialData,
   session,
   onFormChange,
 }) => {
+  // --- State Management ---
   const [formData, setFormData] = useState(initialData);
   const [desiredRole, setDesiredRole] = useState<"moderator" | "admin" | null>(
     initialData.moderationInterest ? "moderator" : null,
-  );
+  ); // The role the user is interested in
   const [interestChecked, setInterestChecked] = useState(
     initialData.moderationInterest || false,
-  );
+  ); // Whether the user has expressed interest in a role
 
+  // --- Event Handlers ---
+
+  /**
+   * Handles changes in text inputs and textareas.
+   * Updates the local form data and notifies the parent component.
+   */
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
@@ -32,6 +44,10 @@ const PersonalInformationForm: FC<PersonalInformationFormProps> = ({
     onFormChange(updatedData);
   };
 
+  /**
+   * Handles the checkbox for expressing interest in a role.
+   * Toggles the interest status and updates the form data.
+   */
   const handleRoleInterestCheck = () => {
     if (!desiredRole) {
       alert(
@@ -46,6 +62,10 @@ const PersonalInformationForm: FC<PersonalInformationFormProps> = ({
     onFormChange(updatedData);
   };
 
+  /**
+   * Handles the selection of a desired role (moderator or admin).
+   * Updates the desired role state and form data.
+   */
   const handleDesiredRoleChange = (role: "moderator" | "admin") => {
     setDesiredRole(role);
     if (interestChecked) {
@@ -57,12 +77,14 @@ const PersonalInformationForm: FC<PersonalInformationFormProps> = ({
     }
   };
 
+  // --- Render ---
   return (
     <div className="animate-on-load mb-8 rounded-lg bg-white p-6 shadow">
       <h2 className="mb-4 border-b border-gray-200 pb-2 text-xl font-semibold text-gray-900">
         Osobní údaje
       </h2>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        {/* First Name Input */}
         <div>
           <label
             htmlFor="firstName"
@@ -78,6 +100,8 @@ const PersonalInformationForm: FC<PersonalInformationFormProps> = ({
             className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
           />
         </div>
+
+        {/* Last Name Input */}
         <div>
           <label
             htmlFor="lastName"
@@ -93,6 +117,8 @@ const PersonalInformationForm: FC<PersonalInformationFormProps> = ({
             className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
           />
         </div>
+
+        {/* Email Input (Read-only) */}
         <div>
           <label
             htmlFor="email"
@@ -136,6 +162,7 @@ const PersonalInformationForm: FC<PersonalInformationFormProps> = ({
           </div>
         </div>
 
+        {/* Profession Input */}
         <div>
           <label
             htmlFor="profession"
@@ -152,6 +179,8 @@ const PersonalInformationForm: FC<PersonalInformationFormProps> = ({
             placeholder="Např. Projektový manažer"
           />
         </div>
+
+        {/* Organization Input */}
         <div>
           <label
             htmlFor="organization"
@@ -168,6 +197,8 @@ const PersonalInformationForm: FC<PersonalInformationFormProps> = ({
             placeholder="Název firmy"
           />
         </div>
+
+        {/* Description Textarea */}
         <div className="md:col-span-2">
           <label
             htmlFor="description"

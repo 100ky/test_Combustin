@@ -3,6 +3,12 @@
 import { useState, useEffect, FC } from "react";
 import { SocialLink } from "./SocialNetworksManager";
 
+// --- Constants ---
+
+/**
+ * A record mapping social network names to their corresponding SVG icons.
+ * This allows for easy rendering of icons based on the social network name.
+ */
 const socialIcons: Record<SocialLink["name"], React.ReactNode> = {
   Facebook: (
     <svg
@@ -46,22 +52,31 @@ const socialIcons: Record<SocialLink["name"], React.ReactNode> = {
   ),
 };
 
+// --- TypeScript Interfaces ---
 interface AddSocialModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSave: (social: Omit<SocialLink, "id">) => void;
 }
 
+/**
+ * A modal component for adding a new social network link.
+ * It's a two-step process: first select the social network, then enter the link.
+ */
 const AddSocialModal: FC<AddSocialModalProps> = ({
   isOpen,
   onClose,
   onSave,
 }) => {
+  // --- State Management ---
   const [selectedSocial, setSelectedSocial] = useState<
     SocialLink["name"] | null
-  >(null);
-  const [link, setLink] = useState("");
+  >(null); // The currently selected social network
+  const [link, setLink] = useState(""); // The URL of the social network profile
 
+  // --- Effects ---
+
+  // Reset state when the modal is opened
   useEffect(() => {
     if (isOpen) {
       setSelectedSocial(null);
@@ -69,8 +84,15 @@ const AddSocialModal: FC<AddSocialModalProps> = ({
     }
   }, [isOpen]);
 
+  // --- Render Logic ---
+
+  // Don't render the modal if it's not open
   if (!isOpen) return null;
 
+  /**
+   * Handles the save action. It calls the onSave prop with the new social link
+   * and closes the modal.
+   */
   const handleSave = () => {
     if (selectedSocial && link.trim()) {
       onSave({ name: selectedSocial, link: link.trim() });
@@ -81,12 +103,13 @@ const AddSocialModal: FC<AddSocialModalProps> = ({
   return (
     <div
       className="bg-opacity-60 fixed inset-0 z-50 flex items-center justify-center bg-black transition-opacity duration-300 ease-in-out"
-      onClick={onClose}
+      onClick={onClose} // Close modal on overlay click
     >
       <div
         className="mx-4 w-full max-w-md transform rounded-lg bg-white p-6 shadow-xl transition-transform duration-300 ease-in-out"
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()} // Prevent modal from closing when clicking inside
       >
+        {/* Step 1: Select a social network */}
         {!selectedSocial ? (
           <>
             <h3 className="mb-4 text-lg font-medium text-gray-900">
@@ -105,6 +128,7 @@ const AddSocialModal: FC<AddSocialModalProps> = ({
             </div>
           </>
         ) : (
+          /* Step 2: Enter the link */
           <div>
             <label
               htmlFor="social-link"
@@ -121,7 +145,7 @@ const AddSocialModal: FC<AddSocialModalProps> = ({
             />
             <div className="mt-4 flex justify-end space-x-3">
               <button
-                onClick={() => setSelectedSocial(null)}
+                onClick={() => setSelectedSocial(null)} // Go back to the social network selection
                 className="rounded-md bg-gray-200 px-4 py-2 font-bold text-gray-800 hover:bg-gray-300"
               >
                 Zpět

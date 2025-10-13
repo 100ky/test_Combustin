@@ -5,27 +5,44 @@ import SocialLinkItem from "./SocialLinkItem";
 import AddSocialModal from "./AddSocialModal";
 
 // --- TypeScript Interfaces ---
+
+/**
+ * Represents a single social network link.
+ */
 export interface SocialLink {
   id: number;
   name: "Facebook" | "Twitter" | "Instagram" | "LinkedIn";
   link: string;
 }
 
+/**
+ * Props for the SocialNetworksManager component.
+ */
 interface SocialNetworksManagerProps {
   initialSocialNets: string[];
   onSocialLinksChange: (links: string[]) => void;
 }
 
 // --- Helper Functions ---
+
+/**
+ * Extracts the social network name from a URL.
+ * @param url The URL of the social network profile.
+ * @returns The name of the social network.
+ */
 const extractSocialName = (url: string): SocialLink["name"] => {
   if (url.includes("facebook")) return "Facebook";
   if (url.includes("twitter")) return "Twitter";
   if (url.includes("instagram")) return "Instagram";
   if (url.includes("linkedin")) return "LinkedIn";
-  return "Facebook"; // Default
+  return "Facebook"; // Default value if no match is found
 };
 
 // --- SVG Icon Components ---
+
+/**
+ * A simple SVG icon component for the "Add" button.
+ */
 const PlusIcon: FC = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -41,39 +58,62 @@ const PlusIcon: FC = () => (
   </svg>
 );
 
+/**
+ * A component for managing a list of social network links.
+ * It allows users to add, view, and delete their social media profiles.
+ */
 const SocialNetworksManager: FC<SocialNetworksManagerProps> = ({
   initialSocialNets,
   onSocialLinksChange,
 }) => {
+  // --- State Management ---
   const [socialLinks, setSocialLinks] = useState<SocialLink[]>(
     initialSocialNets.map((link, index) => ({
       id: index,
       name: extractSocialName(link),
       link: link,
     })),
-  );
-  const [removingLinkId, setRemovingLinkId] = useState<number | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  ); // The list of social links
+  const [removingLinkId, setRemovingLinkId] = useState<number | null>(null); // The ID of the link being removed, for animation purposes
+  const [isModalOpen, setIsModalOpen] = useState(false); // Controls the visibility of the "Add Social Link" modal
 
-  // Notify parent component about changes
+  // --- Effects ---
+
+  /**
+   * Notifies the parent component whenever the list of social links changes.
+   * This is essential for keeping the parent component's state in sync.
+   */
   useEffect(() => {
     onSocialLinksChange(socialLinks.map((sl) => sl.link));
   }, [socialLinks, onSocialLinksChange]);
 
+  // --- Event Handlers ---
+
+  /**
+   * Handles adding a new social link to the list.
+   * @param social The new social link to add (without an ID).
+   */
   const handleAddSocial = (social: Omit<SocialLink, "id">) => {
     setSocialLinks((prev) => [...prev, { ...social, id: Date.now() }]);
   };
 
+  /**
+   * Handles deleting a social link from the list.
+   * It sets the removingLinkId to trigger the exit animation before removing the item.
+   * @param id The ID of the social link to delete.
+   */
   const handleDeleteSocial = (id: number) => {
     setRemovingLinkId(id);
     setTimeout(() => {
       setSocialLinks((prev) => prev.filter((link) => link.id !== id));
       setRemovingLinkId(null);
-    }, 400); // Animation duration
+    }, 400); // Corresponds to the duration of the exit animation
   };
 
+  // --- Render ---
   return (
     <div className="animate-on-load rounded-lg bg-white p-6 shadow">
+      {/* Header with Title and Add Button */}
       <div className="mb-4 flex items-center justify-between border-b border-gray-200 pb-2">
         <h2 className="text-xl font-semibold text-gray-900">Sociální sítě</h2>
         <button
@@ -84,6 +124,8 @@ const SocialNetworksManager: FC<SocialNetworksManagerProps> = ({
           <PlusIcon />
         </button>
       </div>
+
+      {/* List of Social Links */}
       <div className="space-y-4">
         {socialLinks.map((link) => (
           <SocialLinkItem
@@ -99,6 +141,8 @@ const SocialNetworksManager: FC<SocialNetworksManagerProps> = ({
           </p>
         )}
       </div>
+
+      {/* Modal for Adding a New Social Link */}
       <AddSocialModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

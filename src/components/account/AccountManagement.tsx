@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, FC } from "react";
+import { useState, useEffect, FC, useCallback } from "react";
 import { useSession } from "next-auth/react";
 import { Account } from "@/types/account";
 import { updateAccountAction } from "@/app/account/actions";
@@ -9,17 +9,25 @@ import PersonalInformationForm from "./PersonalInformationForm";
 import SocialNetworksManager from "./SocialNetworksManager";
 import "./AccountManagement.css";
 
+// --- TypeScript Interfaces ---
 interface AccountManagementProps {
   account: Account;
 }
 
+/**
+ * Main component for managing user account details.
+ * It handles form state, changes, and saving data to the backend.
+ */
 const AccountManagement: FC<AccountManagementProps> = ({ account }) => {
   const { data: session } = useSession();
-  const [isDirty, setIsDirty] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
-  const [saveSuccess, setSaveSuccess] = useState(false);
-  const [saveError, setSaveError] = useState<string | null>(null);
 
+  // --- State Management ---
+  const [isDirty, setIsDirty] = useState(false); // Tracks if the form has unsaved changes
+  const [isSaving, setIsSaving] = useState(false); // Tracks if the form is currently being saved
+  const [saveSuccess, setSaveSuccess] = useState(false); // Tracks if the save was successful
+  const [saveError, setSaveError] = useState<string | null>(null); // Holds any error message from saving
+
+  // Form data state, initialized with account details
   const [formData, setFormData] = useState<Partial<Account>>({
     id: account.id,
     firstName: account.firstName || "",
@@ -32,21 +40,30 @@ const AccountManagement: FC<AccountManagementProps> = ({ account }) => {
     moderationInterest: account.moderationInterest || false,
   });
 
+  // --- Effects ---
+
+  // Apply loaded class for entry animations on mount
   useEffect(() => {
-    // Apply loaded class for entry animations
     document.body.classList.add("loaded");
     return () => {
       document.body.classList.remove("loaded");
     };
   }, []);
 
-  // Handler for input changes in the personal info form
-  const handleFormChange = (updatedData: Partial<Account>) => {
+  // --- Event Handlers ---
+
+  /**
+   * Handles changes from form inputs and updates the form data state.
+   * Memoized with useCallback to prevent re-renders.
+   */
+  const handleFormChange = useCallback((updatedData: Partial<Account>) => {
     setFormData((prev) => ({ ...prev, ...updatedData }));
     if (!isDirty) setIsDirty(true);
-  };
+  }, [isDirty]);
 
-  // Handles saving the entire form
+  /**
+   * Handles saving the entire form data to the backend.
+   */
   const handleSave = async () => {
     setIsSaving(true);
     setSaveSuccess(false);
@@ -54,7 +71,7 @@ const AccountManagement: FC<AccountManagementProps> = ({ account }) => {
 
     const payload: Partial<Account> = { ...formData };
 
-    // Remove optional fields if they are empty strings
+    // Remove optional fields if they are empty strings to keep the database clean
     if (payload.imageUrl === "") delete payload.imageUrl;
     if (payload.description === "") delete payload.description;
     if (payload.organization === "") delete payload.organization;
@@ -65,7 +82,7 @@ const AccountManagement: FC<AccountManagementProps> = ({ account }) => {
       if (result.success) {
         setSaveSuccess(true);
         setIsDirty(false);
-        setTimeout(() => setSaveSuccess(false), 3000);
+        setTimeout(() => setSaveSuccess(false), 3000); // Hide success message after 3 seconds
       } else {
         throw new Error(result.error);
       }
@@ -77,6 +94,15 @@ const AccountManagement: FC<AccountManagementProps> = ({ account }) => {
     }
   };
 
+  /**
+   * Callback for when social links are changed in the SocialNetworksManager.
+   * Memoized to prevent re-renders.
+   */
+  const onSocialLinksChange = useCallback((newSocialNets: string[]) => {
+    handleFormChange({ socialNets: newSocialNets });
+  }, [handleFormChange]);
+
+  // --- Render ---
   return (
     <div className="mx-auto max-w-4xl p-4 sm:p-6 lg:p-8">
       <h1 className="animate-on-load mb-6 text-3xl font-bold text-gray-900">
@@ -105,12 +131,10 @@ const AccountManagement: FC<AccountManagementProps> = ({ account }) => {
       {/* Social Networks Management Section */}
       <SocialNetworksManager
         initialSocialNets={formData.socialNets || []}
-        onSocialLinksChange={(newSocialNets: string[]) =>
-          handleFormChange({ socialNets: newSocialNets })
-        }
+        onSocialLinksChange={onSocialLinksChange}
       />
 
-      {/* A floating "Save Changes" button */}
+      {/* A floating "Save Changes" button that appears when the form is dirty */}
       {isDirty && (
         <div className="fixed bottom-0 left-1/2 w-full max-w-4xl -translate-x-1/2 p-4">
           <button

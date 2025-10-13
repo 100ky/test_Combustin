@@ -3,6 +3,11 @@
 import { useState, useEffect, FC } from "react";
 import { SocialLink } from "./SocialNetworksManager";
 
+// --- Constants ---
+
+/**
+ * A record mapping social network names to their corresponding SVG icons.
+ */
 const socialIcons: Record<SocialLink["name"], React.ReactNode> = {
   Facebook: (
     <svg
@@ -46,6 +51,9 @@ const socialIcons: Record<SocialLink["name"], React.ReactNode> = {
   ),
 };
 
+/**
+ * A simple SVG icon component for the delete button.
+ */
 const DeleteIcon: FC = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -63,34 +71,47 @@ const DeleteIcon: FC = () => (
   </svg>
 );
 
+// --- TypeScript Interfaces ---
 interface SocialLinkItemProps {
   item: SocialLink;
   onDelete: (id: number) => void;
   isRemoving: boolean;
 }
 
+/**
+ * A component that displays a single social link item.
+ * It shows the social network icon, the link, and a delete button.
+ * It also handles its own mount and unmount animations.
+ */
 const SocialLinkItem: FC<SocialLinkItemProps> = ({
   item,
   onDelete,
   isRemoving,
 }) => {
+  // --- State Management for Animations ---
   const [isMounted, setIsMounted] = useState(false);
 
+  // Set isMounted to true after the component mounts to trigger the entry animation.
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
+  // Determine the animation classes based on the component's state.
   const animationClasses =
     isMounted && !isRemoving ? "" : isRemoving ? "removing" : "entering";
 
+  // --- Render ---
   return (
     <div
       className={`social-item ${animationClasses} flex items-center justify-between rounded-lg border border-gray-200 bg-gray-50 p-3`}
     >
       <div className="flex items-center gap-4">
+        {/* Social Network Icon */}
         {socialIcons[item.name]}
         <div className="flex flex-col">
+          {/* Social Network Name */}
           <span className="font-semibold text-gray-800">{item.name}</span>
+          {/* Social Network Link */}
           <a
             href={item.link.startsWith("http") ? item.link : `//${item.link}`}
             target="_blank"
@@ -101,6 +122,7 @@ const SocialLinkItem: FC<SocialLinkItemProps> = ({
           </a>
         </div>
       </div>
+      {/* Delete Button */}
       <button
         onClick={() => onDelete(item.id)}
         className="text-gray-400 transition hover:text-red-500"
