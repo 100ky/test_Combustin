@@ -37,8 +37,8 @@ const PersonalInformationForm: FC<PersonalInformationFormProps> = ({
 
   // --- Render ---
   return (
-    <div className="animate-on-load mb-8 rounded-lg bg-white p-6 shadow">
-      <h2 className="mb-4 border-b border-gray-200 pb-2 text-xl font-semibold text-gray-900">
+    <div className="animate-on-load mb-8 rounded-lg bg-[var(--background)] p-6 shadow">
+      <h2 className="mb-4 border-b border-gray-200 pb-2 text-xl font-semibold text-[var(--foreground)]">
         Osobní údaje
       </h2>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">

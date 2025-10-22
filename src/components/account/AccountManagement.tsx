@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, FC, useCallback } from "react";
-import { useSession } from "next-auth/react";
 import type { Account } from "../../types/account";
 import { updateAccountAction } from "../../app/account/actions";
 
@@ -14,7 +13,6 @@ interface AccountManagementProps {
 }
 
 const AccountManagement: FC<AccountManagementProps> = ({ account }) => {
-  const { data: session } = useSession();
   const [isDirty, setIsDirty] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
@@ -24,6 +22,8 @@ const AccountManagement: FC<AccountManagementProps> = ({ account }) => {
     id: account.id,
     firstName: account.firstName || "",
     lastName: account.lastName || "",
+    email: account.email || "",
+    authorities: account.authorities || [],
     imageUrl: account.imageUrl || "",
     profession: account.profession || "",
     organization: account.organization || "",
@@ -106,7 +106,6 @@ const AccountManagement: FC<AccountManagementProps> = ({ account }) => {
       {/* Personal Information Form Section */}
       <PersonalInformationForm
         initialData={formData}
-        session={session}
         onFormChange={handleFormChange}
       />
 

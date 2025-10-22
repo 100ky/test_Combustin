@@ -109,10 +109,12 @@ const SocialNetworksManager: FC<SocialNetworksManagerProps> = ({
 
   // --- Render ---
   return (
-    <div className="animate-on-load rounded-lg bg-white p-6 shadow">
+    <div className="animate-on-load rounded-lg bg-[var(--background)] p-6 shadow">
       {/* Header with Title and Add Button */}
       <div className="mb-4 flex items-center justify-between border-b border-gray-200 pb-2">
-        <h2 className="text-xl font-semibold text-gray-900">Sociální sítě</h2>
+        <h2 className="text-xl font-semibold text-[var(--foreground)]">
+          Sociální sítě
+        </h2>
         <button
           id="add-social-btn"
           onClick={() => setIsModalOpen(true)}
