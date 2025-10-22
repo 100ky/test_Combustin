@@ -8,7 +8,6 @@ import { createIncineratorPopupContent } from "@/utils/mapHelpers";
 import { getIncineratorDetails } from "@/lib/api";
 import type { IncineratorSidebarRef } from "./IncineratorSidebarContainer";
 import IncineratorSidebarContainer from "./IncineratorSidebarContainer";
-import { useSession } from "next-auth/react";
 
 // Dynamically import the Map component so it only renders on the client (no SSR)
 const Map = dynamic(() => import("@/components/map/Map"), {
@@ -29,7 +28,6 @@ type MapWrapperProps = {
 const MapWrapper = ({ incinerators }: MapWrapperProps) => {
   const [map, setMap] = useState<LeafletMap | null>(null);
   const incineratorSidebarRef = useRef<IncineratorSidebarRef>(null);
-  const { data: session } = useSession();
 
   const handleMarkerClick = async (
     e: LeafletMouseEvent,
@@ -44,7 +42,6 @@ const MapWrapper = ({ incinerators }: MapWrapperProps) => {
 
       const detailedIncinerator = await getIncineratorDetails(
         String(incineratorId),
-        session?.accessToken,
       );
       const newContent = createIncineratorPopupContent(detailedIncinerator);
       popup.setContent(newContent);
@@ -57,7 +54,7 @@ const MapWrapper = ({ incinerators }: MapWrapperProps) => {
   };
 
   return (
-    <div className="flex h-[calc(100vh-96px)] w-full md:h-[calc(100vh-80px)]">
+    <div className="flex h-[calc(100vh-80px)] w-full">
       <IncineratorSidebarContainer
         incinerators={incinerators}
         map={map}

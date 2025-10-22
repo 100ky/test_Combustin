@@ -1,11 +1,10 @@
 "use client";
 
-import { useState, useEffect, FC } from "react";
+import { useState, FC } from "react";
 import SocialLinkItem from "./SocialLinkItem";
 import AddSocialModal from "./AddSocialModal";
 
 // --- TypeScript Interfaces ---
-
 /**
  * Represents a single social network link.
  */
@@ -24,7 +23,6 @@ interface SocialNetworksManagerProps {
 }
 
 // --- Helper Functions ---
-
 /**
  * Extracts the social network name from a URL.
  * @param url The URL of the social network profile.
@@ -39,7 +37,6 @@ const extractSocialName = (url: string): SocialLink["name"] => {
 };
 
 // --- SVG Icon Components ---
-
 /**
  * A simple SVG icon component for the "Add" button.
  */
@@ -67,45 +64,45 @@ const SocialNetworksManager: FC<SocialNetworksManagerProps> = ({
   onSocialLinksChange,
 }) => {
   // --- State Management ---
-  const [socialLinks, setSocialLinks] = useState<SocialLink[]>(
+  const [socialLinks, setSocialLinks] = useState<SocialLink[]>(() =>
     initialSocialNets.map((link, index) => ({
       id: index,
       name: extractSocialName(link),
       link: link,
     })),
-  ); // The list of social links
-  const [removingLinkId, setRemovingLinkId] = useState<number | null>(null); // The ID of the link being removed, for animation purposes
-  const [isModalOpen, setIsModalOpen] = useState(false); // Controls the visibility of the "Add Social Link" modal
-
-  // --- Effects ---
-
-  /**
-   * Notifies the parent component whenever the list of social links changes.
-   * This is essential for keeping the parent component's state in sync.
-   */
-  useEffect(() => {
-    onSocialLinksChange(socialLinks.map((sl) => sl.link));
-  }, [socialLinks, onSocialLinksChange]);
+  );
+  const [removingLinkId, setRemovingLinkId] = useState<number | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // --- Event Handlers ---
 
   /**
-   * Handles adding a new social link to the list.
+   * Handles adding a new social link.
    * @param social The new social link to add (without an ID).
    */
   const handleAddSocial = (social: Omit<SocialLink, "id">) => {
-    setSocialLinks((prev) => [...prev, { ...social, id: Date.now() }]);
+    const newSocialLink: SocialLink = {
+      id:
+        socialLinks.length > 0
+          ? Math.max(...socialLinks.map((l) => l.id)) + 1
+          : 0,
+      ...social,
+    };
+    const updatedSocialLinks = [...socialLinks, newSocialLink];
+    setSocialLinks(updatedSocialLinks);
+    onSocialLinksChange(updatedSocialLinks.map((sl) => sl.link));
   };
 
   /**
    * Handles deleting a social link from the list.
-   * It sets the removingLinkId to trigger the exit animation before removing the item.
    * @param id The ID of the social link to delete.
    */
   const handleDeleteSocial = (id: number) => {
     setRemovingLinkId(id);
     setTimeout(() => {
-      setSocialLinks((prev) => prev.filter((link) => link.id !== id));
+      const updatedSocialLinks = socialLinks.filter((link) => link.id !== id);
+      setSocialLinks(updatedSocialLinks);
+      onSocialLinksChange(updatedSocialLinks.map((sl) => sl.link));
       setRemovingLinkId(null);
     }, 400); // Corresponds to the duration of the exit animation
   };
@@ -127,12 +124,12 @@ const SocialNetworksManager: FC<SocialNetworksManagerProps> = ({
 
       {/* List of Social Links */}
       <div className="space-y-4">
-        {socialLinks.map((link) => (
+        {socialLinks.map((item) => (
           <SocialLinkItem
-            key={link.id}
-            item={link}
+            key={item.id}
+            item={item}
             onDelete={handleDeleteSocial}
-            isRemoving={removingLinkId === link.id}
+            isRemoving={removingLinkId === item.id}
           />
         ))}
         {socialLinks.length === 0 && (

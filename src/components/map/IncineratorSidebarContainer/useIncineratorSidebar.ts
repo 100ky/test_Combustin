@@ -3,7 +3,6 @@ import type { LatLngBounds, Map as LeafletMap } from "leaflet";
 import type { Incinerator } from "@/types/incinerator";
 import { getIncineratorDetails, getBuildingDetails } from "@/lib/api";
 import { MAP_CONSTANTS } from "@/utils/mapHelpers";
-import { useSession } from "next-auth/react";
 
 /**
  * Props for the useIncineratorSidebar custom hook.
@@ -27,7 +26,6 @@ export const useIncineratorSidebar = ({
   const [selectedIncinerator, setSelectedIncinerator] =
     useState<Incinerator | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const { data: session } = useSession();
 
   /**
    * Closes the sidebar and clears the selected incinerator after a short delay for the closing animation.
@@ -54,7 +52,6 @@ export const useIncineratorSidebar = ({
       // Fetch basic incinerator details.
       const detailedIncinerator = await getIncineratorDetails(
         String(incineratorId),
-        session?.accessToken,
       );
 
       // If the incinerator has associated buildings, fetch their details as well.
@@ -63,7 +60,8 @@ export const useIncineratorSidebar = ({
         detailedIncinerator.buildings.length > 0
       ) {
         const buildingDetailsPromises = detailedIncinerator.buildings.map(
-          (building) => getBuildingDetails(String(building.id), session?.accessToken),
+          (building) =>
+            getBuildingDetails(String(building.id)),
         );
         const buildingsWithDetails = await Promise.all(buildingDetailsPromises);
         detailedIncinerator.buildings = buildingsWithDetails;

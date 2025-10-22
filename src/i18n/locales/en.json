@@ -32,5 +32,11 @@
     "buildingBuilt": "Built",
     "buildingArea": "Area (m²)",
     "noSelection": "Select an incinerator to see details"
+  },
+
+  "themeToggle": {
+    "label": "Toggle theme",
+    "light": "Light mode",
+    "dark": "Dark mode"
   }
 }

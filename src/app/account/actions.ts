@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { updateAccount } from "@/lib/api";
-import { Account } from "@/types/account";
+import type { Account } from "@/types/account";
 
 /**
  * Server Action to update a user account.
@@ -30,4 +30,3 @@ export async function updateAccountAction(
     return { success: false, error: (error as Error).message };
   }
 }
-

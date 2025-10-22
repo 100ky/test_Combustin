@@ -4,11 +4,12 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import NavItem from "./NavItem";
 import MobileNavItem from "./MobileNavItem";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 import { t } from "@/utils/translations"; // Import the translation function
 
 // This component renders the main navigation bar for the application.
 // It includes desktop navigation links, and a mobile hamburger menu.
-export default function NavBar() {
+export default function NavBar({ userPanel }: { userPanel?: React.ReactNode }) {
   // State to manage the visibility of the mobile menu.
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   // Hook to get the current URL pathname.
@@ -52,12 +53,16 @@ export default function NavBar() {
 
           {/* Decorative vertical line. */}
           <div className="mx-8 hidden w-px bg-[var(--background-muted)] lg:block"></div>
+
+          <div className="hidden items-center md:ml-2 md:flex lg:ml-0">
+            <ThemeToggle type="desktop" />
+          </div>
         </div>{" "}
         {/* Mobile hamburger menu button. */}
-        <div className="ml-auto md:hidden">
+        <div className="ml-auto pr-4 md:hidden">
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} // Toggles the mobile menu visibility.
-            className="rounded-xl p-3 transition-all duration-200 hover:bg-[var(--background-muted)] hover:text-[foreground-muted]"
+            className="cursor-pointer rounded-xl p-3 transition-all duration-200 hover:bg-[var(--background-muted)] hover:text-[foreground-muted]"
             aria-label="Open navigation menu"
           >
             {" "}
@@ -89,7 +94,7 @@ export default function NavBar() {
 
       {/* Mobile menu dropdown, shown when isMobileMenuOpen is true. */}
       {isMobileMenuOpen && (
-        <div className="border-t border-[var(--background-muted)] bg-[var(--background)] shadow-lg md:hidden">
+        <div className="mt-4 border-t border-[var(--background-muted)] bg-[var(--background)] shadow-lg md:hidden">
           <div className="space-y-2 px-6 py-4">
             {/* Navigation links for mobile view. */}
             {navItems.map((item) => (
@@ -101,6 +106,18 @@ export default function NavBar() {
                 onClick={() => setIsMobileMenuOpen(false)} // Closes the mobile menu on item click.
               />
             ))}
+
+            {/* Decorative horizontal line. */}
+            <div className="my-2 h-px bg-[var(--background-muted)]"></div>
+
+            <div>
+              <ThemeToggle type="mobile" />
+            </div>
+
+            {/* Decorative horizontal line. */}
+            <div className="my-2 h-px bg-[var(--background-muted)]"></div>
+
+            <div className="font-medium">{userPanel}</div>
           </div>
         </div>
       )}

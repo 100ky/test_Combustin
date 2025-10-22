@@ -1,5 +1,5 @@
 import { Incinerator, Building } from "@/types/incinerator";
-import { Account } from "@/types/account";
+import type { Account } from "@/types/account";
 import { auth } from "@/auth";
 
 /**
@@ -21,7 +21,8 @@ export async function api<T>(
   let token: string | undefined = accessToken;
 
   // Determine if this is a client-side or server-side call.
-  const isClientSideCall = !!process.env.NEXT_PUBLIC_ORIGIN_URL && typeof window !== 'undefined';
+  const isClientSideCall =
+    !!process.env.NEXT_PUBLIC_ORIGIN_URL && typeof window !== "undefined";
 
   if (isClientSideCall) {
     // Client-side calls use the proxy URL defined in environment variables.
@@ -31,10 +32,10 @@ export async function api<T>(
     fullApiUrl = `${process.env.REMOTE_API_BASE_URL}${path}`;
     // Get session and token on the server side if not explicitly passed.
     if (!token) {
-        const session = await auth();
-        if (session?.accessToken) {
-          token = session.accessToken;
-        }
+      const session = await auth();
+      if (session?.accessToken) {
+        token = session.accessToken;
+      }
     }
   }
 
@@ -53,7 +54,7 @@ export async function api<T>(
     const resClone = res.clone();
     try {
       errorBody = await resClone.json();
-    } catch (_) { // eslint-disable-line @typescript-eslint/no-unused-vars
+    } catch {
       errorBody = await res.text();
     }
     throw new Error(
@@ -74,7 +75,9 @@ export async function api<T>(
 /**
  * Fetches all incinerators.
  */
-export async function getIncinerators(accessToken?: string): Promise<Incinerator[]> {
+export async function getIncinerators(
+  accessToken?: string,
+): Promise<Incinerator[]> {
   return api<Incinerator[]>(
     "/incinerators",
     {
@@ -143,4 +146,3 @@ export async function updateAccount(
     body: JSON.stringify(account),
   });
 }
-

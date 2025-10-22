@@ -63,6 +63,20 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       session.idToken = token.idToken;
       session.error = token.error;
 
+      // Extract roles from the ID token
+      if (token.idToken) {
+        try {
+          const decodedToken = JSON.parse(
+            Buffer.from(token.idToken.split(".")[1], "base64").toString(),
+          );
+          if (decodedToken.realm_access && decodedToken.realm_access.roles) {
+            session.user.roles = decodedToken.realm_access.roles;
+          }
+        } catch (e) {
+          console.error("Error decoding token roles", e);
+        }
+      }
+
       return session;
     },
   },
@@ -84,7 +98,9 @@ async function refreshToken(token: JWT): Promise<JWT> {
   const refreshTokenUrl = process.env.REFRESH_TOKEN_URL;
 
   if (!clientId || !clientSecret || !refreshTokenUrl) {
-    console.error("❌ Missing Keycloak environment variables for token refresh.");
+    console.error(
+      "❌ Missing Keycloak environment variables for token refresh.",
+    );
     return { ...token, error: "MissingClientCredentials" };
   }
 
@@ -104,10 +120,7 @@ async function refreshToken(token: JWT): Promise<JWT> {
 
     if (!res.ok) {
       const errorBody = await res.json();
-      console.warn(
-        `⚠️ Refresh token request failed: ${res.status}`,
-        errorBody,
-      );
+      console.warn(`⚠️ Refresh token request failed: ${res.status}`, errorBody);
 
       // If the refresh token is invalid, all tokens are revoked.
       if (errorBody.error === "invalid_grant") {

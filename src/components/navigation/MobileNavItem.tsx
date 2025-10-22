@@ -24,7 +24,7 @@ export default function MobileNavItem({
       className={`block rounded-lg px-4 py-3 text-base font-medium transition-all duration-200 ${
         isActive
           ? "bg-blue-500 text-white shadow-md" // Active state styling.
-          : "hover:bg-gray-100 hover:text-[background-muted]" // Inactive state styling.
+          : "hover:bg-[var(--background-muted)] hover:text-[var(--foreground-muted)]" // Inactive state styling.
       }`}
     >
       {label}

@@ -11,6 +11,7 @@
     "register": "Registrovat",
     "signOut": "Odhlásit"
   },
+
   "incineratorDetails": {
     "title": "Detail spalovny",
     "nameAndId": "Spalovna {id}",
@@ -32,5 +33,11 @@
     "buildingBuilt": "Postaveno",
     "buildingArea": "Plocha (m²)",
     "noSelection": "Vyberte spalovnu pro zobrazení detailů"
+  },
+
+  "themeToggle": {
+    "label": "Přepnout režim",
+    "light": "Světlý režim",
+    "dark": "Tmavý režim"
   }
 }
