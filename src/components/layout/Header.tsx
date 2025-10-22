@@ -7,7 +7,7 @@ export default function Header() {
     <header className="fixed top-0 right-0 left-0 z-1100 h-24 border-b border-[var(--background-muted)] shadow-lg backdrop-blur-sm md:h-20">
       <div className="flex h-full flex-row">
         {/* Left column: Logo */}
-        <div className="flex items-center justify-center border-foreground py-2 pl-4">
+        <div className="border-foreground flex items-center justify-center py-2 pl-4">
           <Logo />
         </div>
 

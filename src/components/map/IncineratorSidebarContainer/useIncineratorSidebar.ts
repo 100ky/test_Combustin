@@ -60,8 +60,7 @@ export const useIncineratorSidebar = ({
         detailedIncinerator.buildings.length > 0
       ) {
         const buildingDetailsPromises = detailedIncinerator.buildings.map(
-          (building) =>
-            getBuildingDetails(String(building.id)),
+          (building) => getBuildingDetails(String(building.id)),
         );
         const buildingsWithDetails = await Promise.all(buildingDetailsPromises);
         detailedIncinerator.buildings = buildingsWithDetails;

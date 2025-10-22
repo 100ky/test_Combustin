@@ -5,7 +5,6 @@
     "incinerators": "Incinerators",
     "about": "About"
   },
-
   "userPanel": {
     "signIn": "Sign In",
     "register": "Register",
@@ -33,10 +32,40 @@
     "buildingArea": "Area (m²)",
     "noSelection": "Select an incinerator to see details"
   },
-
   "themeToggle": {
     "label": "Toggle theme",
     "light": "Light mode",
     "dark": "Dark mode"
+  },
+  "account": {
+    "title": "Account Management",
+    "saveSuccess": "Changes have been saved successfully.",
+    "saveError": "Failed to save changes. Please try again.",
+    "saving": "Saving...",
+    "saveChanges": "Save Changes",
+    "personalInfo": "Personal Information",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "role": "Role",
+    "profession": "Profession",
+    "professionPlaceholder": "e.g., Project Manager",
+    "organization": "Organization / Company",
+    "organizationPlaceholder": "Company name",
+    "adminNotes": "Notes for Administrators",
+    "adminNotesPlaceholder": "You can leave a message for the administrators here...",
+    "socialNetworks": "Social Networks",
+    "noSocialNetworks": "You have not added any social networks yet.",
+    "selectSocialNetwork": "Select a social network",
+    "yourProfileOn": "Your profile on {social}",
+    "addLinkPlaceholder": "Enter link or username",
+    "back": "Back",
+    "save": "Save",
+    "manageAccount": "Manage Account"
+  },
+  "signedOut": {
+    "sessionExpired": "Your session has expired",
+    "message": "You have been automatically signed out. You can sign in again to continue, or proceed to the main page without signing in.",
+    "continue": "Continue to the main page"
   }
 }

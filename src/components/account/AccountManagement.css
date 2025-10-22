@@ -53,3 +53,82 @@
 #add-social-btn:hover {
   transform: rotate(90deg) scale(1.1);
 }
+
+/* --- Dark Mode Overrides --- */
+[data-theme="dark"] .account-management-wrapper h1.text-gray-900 {
+  color: var(--foreground);
+}
+
+/* Card background, border, and shadow */
+[data-theme="dark"] .account-management-wrapper .shadow {
+  background-color: var(--background-muted);
+  box-shadow:
+    0 1px 3px 0 rgba(0, 0, 0, 0.5),
+    0 1px 2px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* Card titles and borders */
+[data-theme="dark"] .account-management-wrapper .border-b.border-gray-200 {
+  border-color: var(--blue);
+}
+
+/* Form labels */
+[data-theme="dark"] .account-management-wrapper label.text-gray-600 {
+  color: var(--foreground-muted);
+}
+
+/* General inputs */
+[data-theme="dark"] .account-management-wrapper input.bg-gray-50,
+[data-theme="dark"] .account-management-wrapper textarea.bg-gray-50 {
+  background-color: var(--background);
+  border-color: var(--blue);
+}
+
+[data-theme="dark"] .account-management-wrapper .text-gray-900 {
+  color: var(--foreground);
+}
+
+/* Read-only inputs */
+[data-theme="dark"] .account-management-wrapper input.bg-gray-200 {
+  background-color: var(--palette-bg-dark);
+  color: var(--foreground-muted);
+  border-color: var(--blue);
+}
+
+[data-theme="dark"] .account-management-wrapper input.text-gray-600[readonly] {
+  color: var(--foreground-muted);
+}
+
+/* Placeholders */
+[data-theme="dark"] .account-management-wrapper ::placeholder {
+  color: var(--foreground-muted);
+  opacity: 0.7;
+}
+
+/* Social Networks Section */
+[data-theme="dark"] .account-management-wrapper .social-item.bg-gray-50 {
+  background-color: var(--background);
+  border-color: var(--blue);
+}
+
+[data-theme="dark"] .account-management-wrapper .social-item .text-gray-800 {
+  color: var(--foreground);
+}
+
+[data-theme="dark"] .account-management-wrapper .text-gray-500 {
+  color: var(--foreground-muted);
+}
+
+[data-theme="dark"]
+  .account-management-wrapper
+  .social-item
+  button.text-gray-400 {
+  color: var(--foreground-muted);
+}
+
+[data-theme="dark"]
+  .account-management-wrapper
+  .social-item
+  button.text-gray-400:hover {
+  color: #ef4444;
+}
