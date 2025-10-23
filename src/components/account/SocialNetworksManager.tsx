@@ -118,7 +118,7 @@ const SocialNetworksManager: FC<SocialNetworksManagerProps> = ({
         <button
           id="add-social-btn"
           onClick={() => setIsModalOpen(true)}
-          className="flex items-center justify-center rounded-full bg-blue-600 p-2 font-bold text-white hover:bg-blue-700"
+          className="flex cursor-pointer items-center justify-center rounded-full bg-blue-600 p-2 font-bold text-white hover:bg-blue-700"
         >
           <PlusIcon />
         </button>

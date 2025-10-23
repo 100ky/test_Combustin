@@ -30,7 +30,7 @@ export default async function UserPanel() {
           <div className="flex max-w-0 items-center gap-2 overflow-hidden transition-all duration-300 ease-in-out group-hover:max-w-md">
             <Link
               href="/account"
-              className="hover:bg-muted/50 rounded-md px-3 py-2 text-sm font-medium whitespace-nowrap"
+              className="hover:bg-muted/50 cursor-pointer rounded-md px-3 py-2 text-sm font-medium whitespace-nowrap"
             >
               Spravovat účet
             </Link>
@@ -38,7 +38,7 @@ export default async function UserPanel() {
             <form action={signOutCompletelyAction}>
               <button
                 type="submit"
-                className="hover:bg-muted/50 rounded-md px-3 py-2 text-sm font-medium whitespace-nowrap"
+                className="hover:bg-muted/50 cursor-pointer rounded-md px-3 py-2 text-sm font-medium whitespace-nowrap"
               >
                 {t("userPanel.signOut")}
               </button>

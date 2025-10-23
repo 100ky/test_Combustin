@@ -125,7 +125,7 @@ const SocialLinkItem: FC<SocialLinkItemProps> = ({
       {/* Delete Button */}
       <button
         onClick={() => onDelete(item.id)}
-        className="text-gray-400 transition hover:text-red-500"
+        className="cursor-pointer text-gray-400 transition hover:text-red-500"
       >
         <DeleteIcon />
       </button>

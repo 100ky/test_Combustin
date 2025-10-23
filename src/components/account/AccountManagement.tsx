@@ -121,7 +121,7 @@ const AccountManagement: FC<AccountManagementProps> = ({ account }) => {
           <button
             onClick={handleSave}
             disabled={isSaving}
-            className="w-full transform rounded-md bg-blue-600 px-4 py-3 font-bold text-white shadow-lg transition-transform hover:-translate-y-0.5 hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
+            className="w-full transform cursor-pointer rounded-md bg-blue-600 px-4 py-3 font-bold text-white shadow-lg transition-transform hover:-translate-y-0.5 hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {isSaving ? "Ukládání..." : "Uložit změny"}
           </button>

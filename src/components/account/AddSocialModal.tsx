@@ -120,7 +120,7 @@ const AddSocialModal: FC<AddSocialModalProps> = ({
                 <button
                   key={key}
                   onClick={() => setSelectedSocial(key as SocialLink["name"])}
-                  className="rounded-lg bg-gray-100 p-3 transition hover:bg-blue-100"
+                  className="cursor-pointer rounded-lg bg-gray-100 p-3 transition hover:bg-blue-100"
                 >
                   {socialIcons[key as SocialLink["name"]]}
                 </button>
@@ -146,13 +146,13 @@ const AddSocialModal: FC<AddSocialModalProps> = ({
             <div className="mt-4 flex justify-end space-x-3">
               <button
                 onClick={() => setSelectedSocial(null)} // Go back to the social network selection
-                className="rounded-md bg-gray-200 px-4 py-2 font-bold text-gray-800 hover:bg-gray-300"
+                className="cursor-pointer rounded-md bg-gray-200 px-4 py-2 font-bold text-gray-800 hover:bg-gray-300"
               >
                 Zpět
               </button>
               <button
                 onClick={handleSave}
-                className="rounded-md bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-700"
+                className="cursor-pointer rounded-md bg-blue-600 px-4 py-2 font-bold text-white hover:bg-blue-700"
               >
                 Uložit
               </button>
