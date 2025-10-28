@@ -5,21 +5,20 @@ declare module "next-auth" {
     user: {
       name: string;
       email: string;
-      roles?: string[];
     } & DefaultSession["user"];
     expires: string;
-    accessToken?: string;
-    idToken?: string;
+    accessToken: string;
+    idToken: string;
     error?: string;
   }
 }
 
 declare module "next-auth/jwt" {
   interface JWT {
-    accessToken?: string;
-    idToken?: string;
-    refreshToken?: string;
-    expiresAt?: number;
+    accessToken: string;
+    idToken: string;
+    refreshToken: string;
+    expiresAt: number;
     error?: string;
   }
 }

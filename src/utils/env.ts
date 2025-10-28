@@ -9,13 +9,9 @@ export const API_BASE_URL = process.env.NEXT_PUBLIC_REMOTE_API_BASE_URL;
 export const ORIGIN_URL = process.env.NEXT_PUBLIC_ORIGIN_URL;
 
 if (!API_BASE_URL) {
-  throw new Error(
-    "Environment variable NEXT_PUBLIC_REMOTE_API_BASE_URL is not defined.",
-  );
+  throw new Error("Environment variable NEXT_PUBLIC_REMOTE_API_BASE_URL is not defined.");
 }
 
 if (!ORIGIN_URL) {
-  throw new Error(
-    "Environment variable NEXT_PUBLIC_ORIGIN_URL is not defined.",
-  );
+  throw new Error("Environment variable NEXT_PUBLIC_ORIGIN_URL is not defined.");
 }

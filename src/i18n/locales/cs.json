@@ -5,67 +5,10 @@
     "incinerators": "Spalovny",
     "about": "O projektu"
   },
+
   "userPanel": {
     "signIn": "Přihlásit",
     "register": "Registrovat",
     "signOut": "Odhlásit"
-  },
-  "incineratorDetails": {
-    "title": "Detail spalovny",
-    "nameAndId": "Spalovna {id}",
-    "operational": "V provozu",
-    "nonOperational": "Mimo provoz",
-    "basicInfoTitle": "Základní údaje",
-    "id": "ID",
-    "established": "Založeno",
-    "address": "Adresa",
-    "latitude": "Šířka",
-    "longitude": "Délka",
-    "unknown": "Neznámo",
-    "capacityTitle": "Kapacita",
-    "capacityUnit": "t/rok",
-    "descriptionTitle": "Popis",
-    "buildingsTitle": "Budovy",
-    "buildingNameAndId": "Budova #{id}",
-    "buildingFunction": "Funkce",
-    "buildingBuilt": "Postaveno",
-    "buildingArea": "Plocha (m²)",
-    "noSelection": "Vyberte spalovnu pro zobrazení detailů"
-  },
-  "themeToggle": {
-    "label": "Přepnout režim",
-    "light": "Světlý režim",
-    "dark": "Tmavý režim"
-  },
-  "account": {
-    "title": "Správa účtu",
-    "saveSuccess": "Změny byly úspěšně uloženy.",
-    "saveError": "Nepodařilo se uložit změny. Zkuste to prosím znovu.",
-    "saving": "Ukládání...",
-    "saveChanges": "Uložit změny",
-    "personalInfo": "Osobní údaje",
-    "firstName": "Jméno",
-    "lastName": "Příjmení",
-    "email": "Email",
-    "role": "Role",
-    "profession": "Profese",
-    "professionPlaceholder": "Např. Projektový manažer",
-    "organization": "Organizace / Firma",
-    "organizationPlaceholder": "Název firmy",
-    "adminNotes": "Poznámky pro administrátory",
-    "adminNotesPlaceholder": "Zde můžete zanechat vzkaz pro administrátory...",
-    "socialNetworks": "Sociální sítě",
-    "noSocialNetworks": "Zatím nemáte přidané žádné sociální sítě.",
-    "selectSocialNetwork": "Vyberte sociální síť",
-    "yourProfileOn": "Váš profil na {social}",
-    "addLinkPlaceholder": "Vložte odkaz nebo uživatelské jméno",
-    "back": "Zpět",
-    "save": "Uložit",
-    "manageAccount": "Spravovat účet"
-  },
-  "signedOut": {
-    "sessionExpired": "Vaše relace vypršela",
-    "message": "Byli jste automaticky odhlášeni. Pro pokračování se můžete znovu přihlásit, nebo pokračovat na hlavní stránku bez přihlášení.",
-    "continue": "Pokračovat na hlavní stránku"
   }
 }

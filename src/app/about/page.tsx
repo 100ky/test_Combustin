@@ -11,10 +11,12 @@ import { t } from "@/utils/translations";
 
 export default function AboutPage() {
   return (
-    <div className="h-[calc(100vh-80px)] w-full">
+    <div className="min-h-screen bg-gray-50">
       <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="text-center">
-          <h1 className="text-4xl font-bold">{t("navigation.about")}</h1>
+          <h1 className="text-4xl font-bold text-gray-900">
+            {t("navigation.about")}
+          </h1>
         </div>
       </div>
     </div>

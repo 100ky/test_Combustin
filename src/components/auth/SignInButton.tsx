@@ -8,7 +8,6 @@ import Button from "@/components/ui/Button";
 export default function SignInButton() {
   return (
     <form
-      className="w-full"
       action={async () => {
         "use server";
         await signIn("keycloak");
@@ -28,19 +27,15 @@ export default function SignInButton() {
       </div>
 
       {/* Mobile version: icon-only button with a11y support */}
-      <button
-        className="flex w-full cursor-pointer items-center gap-2 rounded-lg px-3 py-3 hover:bg-[var(--background-muted)] hover:text-[var(--foreground-muted)] md:hidden"
-        aria-label={`${t("userPanel.signIn")} / ${t("userPanel.register")}`}
-        type="submit"
-      >
-        <ArrowRightEndOnRectangleIcon className="h-6 w-6" />
-
-        <span>{t("userPanel.signIn")}</span>
-
-        <span className="relative bottom-[1px]">|</span>
-
-        <span>{t("userPanel.register")}</span>
-      </button>
+      <div className="block md:hidden">
+        <button
+          className="p-2"
+          aria-label={`${t("userPanel.signIn")} / ${t("userPanel.register")}`}
+          type="submit"
+        >
+          <ArrowRightEndOnRectangleIcon className="h-6 w-6" />
+        </button>
+      </div>
     </form>
   );
 }
