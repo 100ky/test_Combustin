@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, FC } from "react";
-import { Account } from "@/types/account";
+import { useState, type FC } from "react";
+import type { Account } from "@/types/account";
 
 // --- TypeScript Interfaces ---
 interface PersonalInformationFormProps {

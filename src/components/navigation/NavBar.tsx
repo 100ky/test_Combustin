@@ -35,7 +35,7 @@ export default function NavBar({ userPanel }: { userPanel?: React.ReactNode }) {
           <div className="mx-8 hidden w-px bg-[var(--background-muted)] lg:block"></div>
 
           {/* Navigation links for desktop view. */}
-          <nav className="hidden items-center rounded-full border border-[var(--background-muted)] bg-[var(--background-muted)] px-2 py-2 shadow-inner md:flex">
+          <nav className="hidden items-center rounded-full border border-[var(--background-muted)] bg-[var(--background-muted)] px-2 shadow-inner md:flex">
             {navItems.map((item, index) => (
               <div key={item.href} className="flex items-center">
                 <NavItem
@@ -94,7 +94,7 @@ export default function NavBar({ userPanel }: { userPanel?: React.ReactNode }) {
 
       {/* Mobile menu dropdown, shown when isMobileMenuOpen is true. */}
       {isMobileMenuOpen && (
-        <div className="mt-4 border-t border-[var(--background-muted)] bg-[var(--background)] shadow-lg md:hidden">
+        <div className="absolute top-16 left-0 right-0 border-t border-[var(--background-muted)] bg-[var(--background)] shadow-lg md:hidden">
           <div className="space-y-2 px-6 py-4">
             {/* Navigation links for mobile view. */}
             {navItems.map((item) => (
@@ -117,7 +117,7 @@ export default function NavBar({ userPanel }: { userPanel?: React.ReactNode }) {
             {/* Decorative horizontal line. */}
             <div className="my-2 h-px bg-[var(--background-muted)]"></div>
 
-            <div className="font-medium">{userPanel}</div>
+            <div className="font-medium" onClick={() => setIsMobileMenuOpen(false)}>{userPanel}</div>
           </div>
         </div>
       )}

@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 
 import Header from "@/components/layout/Header";
-import Providers from "@/components/layout/Providers";
 // Import global styles.
 import "@/app/globals.css";
 
@@ -31,20 +30,16 @@ export default function RootLayout({
     // suppressHydrationWarning is added to support next-themes.
     <html lang="en" suppressHydrationWarning>
       <body>
-        {/* ThemeProvider enables dark mode functionality. */}
+        {/* Providers component wraps theme and other providers. */}
         <ThemeProvider
           attribute="data-theme"
           defaultTheme="system"
           enableSystem
-          disableTransitionOnChange
         >
-          {/* Your Providers component is nested inside. */}
-          <Providers>
-            {/* Render the Header component. */}
-            <Header />
-            {/* Main content area with your class changes. */}
-            <main className="mt-24 md:mt-20">{children}</main>
-          </Providers>
+          {/* Render the Header component. */}
+          <Header />
+          {/* Main content area with your class changes. */}
+          <main className="mt-16">{children}</main>
         </ThemeProvider>
       </body>
     </html>

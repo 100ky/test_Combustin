@@ -1,17 +1,18 @@
 "use server";
 
 import { auth, signOut } from "@/auth";
+import { redirect } from "next/navigation";
 
 export async function signOutCompletelyAction() {
   await signOutCompletely();
 }
 
-export async function signOutCompletely(redirect = true) {
+export async function signOutCompletely(shouldRedirect = true) {
   const session = await auth();
 
   if (!session) {
     console.log("ℹ️  User is already signed out.");
-    return;
+    redirect("/signed-out");
   }
 
   try {
@@ -29,5 +30,5 @@ export async function signOutCompletely(redirect = true) {
     return;
   }
 
-  await signOut({ redirect: redirect, redirectTo: "/" });
+  await signOut({ redirect: shouldRedirect, redirectTo: "/" });
 }

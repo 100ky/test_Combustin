@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, FC } from "react";
+import { useState, useEffect, type FC } from "react";
 import { SocialLink } from "./SocialNetworksManager";
 
 // --- Constants ---

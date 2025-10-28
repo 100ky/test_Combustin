@@ -93,16 +93,11 @@ export async function getIncinerators(
  */
 export async function getIncineratorDetails(
   incineratorId: string,
-  accessToken?: string,
 ): Promise<Incinerator> {
-  return api<Incinerator>(
-    `/incinerators/${incineratorId}`,
-    {
-      method: "GET",
-      credentials: "omit",
-    },
-    accessToken,
-  );
+  return api<Incinerator>(`/incinerators/${incineratorId}`, {
+    method: "GET",
+    credentials: "omit",
+  });
 }
 
 /**
@@ -110,16 +105,11 @@ export async function getIncineratorDetails(
  */
 export async function getBuildingDetails(
   buildingId: string,
-  accessToken?: string,
 ): Promise<Building> {
-  return api<Building>(
-    `/buildings/${buildingId}`,
-    {
-      method: "GET",
-      credentials: "omit",
-    },
-    accessToken,
-  );
+  return api<Building>(`/buildings/${buildingId}`, {
+    method: "GET",
+    credentials: "omit",
+  });
 }
 
 /**

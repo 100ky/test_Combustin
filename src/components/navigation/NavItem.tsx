@@ -14,12 +14,11 @@ export default function NavItem({ href, label, isActive }: NavItemProps) {
     <Link
       href={href}
       // Applies conditional styling based on whether the item is active.
-      className={`w-22 rounded-full py-3 text-center text-sm font-medium whitespace-nowrap transition-all duration-200 lg:w-28 ${
+      className={`w-22 rounded-full py-0.5 text-center text-sm font-medium whitespace-nowrap transition-all duration-200 lg:w-28 ${
         isActive
           ? "transform bg-blue-500 text-white shadow-md" // Active state styling.
           : "hover:bg-[var(--background)] hover:text-[var(--foreground-muted)] hover:shadow-sm" // Inactive state styling.
-      }`}
-    >
+      }`}    >
       {label}
     </Link>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, FC, useCallback } from "react";
+import { useState, useEffect, type FC, useCallback } from "react";
 import type { Account } from "../../types/account";
 import { updateAccountAction } from "../../app/account/actions";
 
@@ -29,7 +29,7 @@ const AccountManagement: FC<AccountManagementProps> = ({ account }) => {
     organization: account.organization || "",
     description: account.description || "",
     socialNets: account.socialNets || [],
-    moderationInterest: account.moderationInterest || true,
+    moderationInterest: account.moderationInterest || false,
   });
 
   useEffect(() => {

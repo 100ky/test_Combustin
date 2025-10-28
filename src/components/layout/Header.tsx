@@ -4,21 +4,21 @@ import UserPanel from "@/components/auth/UserPanel";
 
 export default function Header() {
   return (
-    <header className="fixed top-0 right-0 left-0 z-1100 h-24 border-b border-[var(--background-muted)] shadow-lg backdrop-blur-sm md:h-20">
+    <header className="fixed top-0 right-0 left-0 z-1100 h-16 border-b border-[var(--background-muted)] shadow-lg backdrop-blur-sm md:h-16">
       <div className="flex h-full flex-row">
         {/* Left column: Logo */}
-        <div className="border-foreground flex items-center justify-center py-2 pl-4">
+        <div className="border-foreground flex items-center justify-center pl-4">
           <Logo />
         </div>
 
         {/* Right column */}
-        <div className="flex flex-1 flex-col gap-2 py-2 md:flex-row md:items-center md:gap-0">
+        <div className="flex flex-1 flex-col gap-2 md:flex-row md:items-center md:gap-0">
           {/* Mobile layout (stacked) */}
           <div className="flex w-full flex-col md:hidden">
             {/* NavBar fully right-aligned */}
             <div className="flex justify-end">
               <div className="absolute top-4 w-full">
-                <NavBar userPanel={<UserPanel />} />
+                <NavBar userPanel={<UserPanel isMobile />} />
               </div>
             </div>
           </div>

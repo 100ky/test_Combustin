@@ -1,59 +1,33 @@
-import Link from "next/link";
-import { redirect } from "next/navigation";
-import { UserIcon } from "@heroicons/react/24/solid";
-
 import { auth } from "@/auth";
-import { t } from "@/utils/translations";
-import { signOutCompletelyAction } from "@/lib/auth-actions";
 import SignInButton from "@/components/auth/SignInButton";
+import SignOutButton from "@/components/auth/SignOutButton";
+import { t } from "@/utils/translations";
+import Link from "next/link";
 
 export default async function UserPanel() {
-  const showUserPanel = process.env.SHOW_USER_PANEL === "true";
-
-  if (!showUserPanel) {
-    return null;
-  }
-
   const session = await auth();
+  const user = session?.user;
 
-  if (session?.error) {
-    redirect("/api/force-sign-out");
+  if (!user) {
+    return <SignInButton />;
   }
 
   return (
-    <div className="flex items-center justify-between gap-4 md:pr-4">
-      {!session ? (
-        <SignInButton />
-      ) : (
-        <div className="group flex items-center justify-end gap-1">
-          {/* Hidden part that expands on hover */}
-          <div className="flex max-w-0 items-center gap-2 overflow-hidden transition-all duration-300 ease-in-out group-hover:max-w-md">
-            <Link
-              href="/account"
-              className="hover:bg-muted/50 cursor-pointer rounded-md px-3 py-2 text-sm font-medium whitespace-nowrap"
-            >
-              Spravovat účet
-            </Link>
-
-            <form action={signOutCompletelyAction}>
-              <button
-                type="submit"
-                className="hover:bg-muted/50 cursor-pointer rounded-md px-3 py-2 text-sm font-medium whitespace-nowrap"
-              >
-                {t("userPanel.signOut")}
-              </button>
-            </form>
-            {/* Separator */}
-            <div className="bg-muted mx-1 h-6 w-px"></div>
-          </div>
-
-          {/* Always visible part */}
-          <div className="flex cursor-pointer items-center gap-2 rounded-md p-2 text-sm font-medium">
-            <span>{session.user.name}</span>
-            <UserIcon className="h-5 w-5" />
-          </div>
+    <div className="group relative">
+      <div className="cursor-pointer rounded-md px-3 py-2 text-sm font-medium">
+        {user.name}
+      </div>
+      <div className="absolute right-0 w-48 origin-top-right flex flex-col rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 opacity-0 scale-95 transform transition-all duration-200 ease-in-out group-hover:scale-100 group-hover:opacity-100 invisible group-hover:visible">
+        <Link
+          href="/account"
+          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+        >
+          {t("userPanel.editAccount")}
+        </Link>
+        <div className="px-4 py-1">
+            <SignOutButton variant="link" />
         </div>
-      )}
+      </div>
     </div>
   );
 }
