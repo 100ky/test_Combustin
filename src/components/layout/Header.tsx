@@ -4,28 +4,18 @@ import UserPanel from "@/components/auth/UserPanel";
 
 export default function Header() {
   return (
-    <header className="fixed top-0 right-0 left-0 z-50 h-24 border-b border-gray-200 bg-white/95 shadow-lg backdrop-blur-sm md:h-20">
+    <header className="fixed top-0 right-0 left-0 z-1100 h-[var(--header-height)] border-b border-[var(--background-muted)] shadow-lg backdrop-blur-sm">
       <div className="flex h-full flex-row">
         {/* Left column: Logo */}
-        <div className="flex items-center justify-center border-gray-200 px-4 py-2">
+        <div className="border-foreground flex items-center justify-center py-2 pl-4">
           <Logo />
         </div>
 
         {/* Right column */}
-        <div className="flex flex-1 flex-col gap-2 px-4 py-2 md:flex-row md:items-center md:gap-0">
-          {/* Mobile layout (stacked) */}
-          <div className="flex w-full flex-col md:hidden">
-            {/* UserPanel aligned right */}
-            <div className="flex justify-end">
-              <UserPanel />
-            </div>
-
-            {/* NavBar fully right-aligned */}
-            <div className="flex w-full justify-end">
-              <div className="w-fit">
-                <NavBar />
-              </div>
-            </div>
+        <div className="flex flex-1 items-center">
+          {/* Mobile layout */}
+          <div className="flex h-full w-full items-center md:hidden">
+            <NavBar userPanel={<UserPanel />} />
           </div>
 
           {/* Desktop layout */}
@@ -33,7 +23,7 @@ export default function Header() {
             <NavBar />
           </div>
 
-          <div className="hidden items-center justify-end md:flex">
+          <div className="hidden min-w-[350px] items-center justify-end md:flex">
             <UserPanel />
           </div>
         </div>

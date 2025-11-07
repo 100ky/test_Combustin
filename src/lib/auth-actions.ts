@@ -29,5 +29,5 @@ export async function signOutCompletely(redirect = true) {
     return;
   }
 
-  await signOut({ redirect: redirect });
+  await signOut({ redirect: redirect, redirectTo: "/" });
 }

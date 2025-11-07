@@ -9,7 +9,10 @@ import { isPlannedIncinerator } from "@/utils/mapHelpers";
 
 export interface MarkerWithDblClickProps {
   incinerator: Incinerator;
-  handleMarkerClick: (e: LeafletMouseEvent, incineratorId: number | string) => void;
+  handleMarkerClick: (
+    e: LeafletMouseEvent,
+    incineratorId: number | string,
+  ) => void;
 }
 
 /**
@@ -18,60 +21,65 @@ export interface MarkerWithDblClickProps {
  * - Single click: Opens a popup with incinerator details.
  * - Double click: Zooms in on the incinerator with a fly-to animation.
  */
-const MarkerWithDblClick = ({ incinerator, handleMarkerClick }: MarkerWithDblClickProps) => {
-    const map = useMap();
-    const [clickTimeout, setClickTimeout] = useState<NodeJS.Timeout | null>(null);
+const MarkerWithDblClick = ({
+  incinerator,
+  handleMarkerClick,
+}: MarkerWithDblClickProps) => {
+  const map = useMap();
+  const [clickTimeout, setClickTimeout] = useState<NodeJS.Timeout | null>(null);
 
-    useEffect(() => {
-        return () => {
-            if (clickTimeout) {
-                clearTimeout(clickTimeout);
-            }
-        };
-    }, [clickTimeout]);
-
-    const handleClick = (e: LeafletMouseEvent) => {
-        // Clear any pending click timeout
-        if (clickTimeout) {
-            clearTimeout(clickTimeout);
-        }
-        // Set a new timeout to handle the single click
-        const timeout = setTimeout(() => {
-            handleMarkerClick(e, incinerator.id);
-        }, 200);
-        setClickTimeout(timeout);
+  useEffect(() => {
+    return () => {
+      if (clickTimeout) {
+        clearTimeout(clickTimeout);
+      }
     };
+  }, [clickTimeout]);
 
-    const handleDoubleClick = () => {
-        // Clear the single-click timeout so it doesn't fire
-        if (clickTimeout) {
-            clearTimeout(clickTimeout);
-            setClickTimeout(null);
-        }
+  const handleClick = (e: LeafletMouseEvent) => {
+    // Clear any pending click timeout
+    if (clickTimeout) {
+      clearTimeout(clickTimeout);
+    }
+    // Set a new timeout to handle the single click
+    const timeout = setTimeout(() => {
+      handleMarkerClick(e, incinerator.id);
+    }, 200);
+    setClickTimeout(timeout);
+  };
 
-        // Perform the zoom animation
-        map.flyTo([incinerator.location.lat, incinerator.location.lng], 15, {
-            animate: true,
-            duration: 1.0,
-        });
-    };
+  const handleDoubleClick = () => {
+    // Clear the single-click timeout so it doesn't fire
+    if (clickTimeout) {
+      clearTimeout(clickTimeout);
+      setClickTimeout(null);
+    }
 
-    return (
-        <Marker
-            position={[incinerator.location.lat, incinerator.location.lng]}
-            icon={getIncineratorIcon(
-                incinerator.operational,
-                isPlannedIncinerator(incinerator),
-            )}
-            eventHandlers={{
-                click: handleClick,
-                dblclick: handleDoubleClick,
-            }}
-        >
-            {/* Popup is a placeholder; content is set dynamically on click. */}
-            <Popup />
-        </Marker>
-    );
+    map.closePopup();
+
+    // Perform the zoom animation
+    map.flyTo([incinerator.location.lat, incinerator.location.lng], 15, {
+      animate: true,
+      duration: 1.0,
+    });
+  };
+
+  return (
+    <Marker
+      position={[incinerator.location.lat, incinerator.location.lng]}
+      icon={getIncineratorIcon(
+        incinerator.operational,
+        isPlannedIncinerator(incinerator),
+      )}
+      eventHandlers={{
+        click: handleClick,
+        dblclick: handleDoubleClick,
+      }}
+    >
+      {/* Popup is a placeholder; content is set dynamically on click. */}
+      <Popup />
+    </Marker>
+  );
 };
 
 export default MarkerWithDblClick;

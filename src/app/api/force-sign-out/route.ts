@@ -10,5 +10,7 @@ import { signOutCompletely } from "@/lib/auth-actions";
 
 export async function GET() {
   await signOutCompletely(false);
-  return NextResponse.redirect(`${process.env.NEXT_PUBLIC_ORIGIN_URL}/signed-out`);
+  return NextResponse.redirect(
+    `${process.env.NEXT_PUBLIC_ORIGIN_URL}/signed-out`,
+  );
 }

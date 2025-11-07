@@ -1,5 +1,6 @@
 // Import necessary types and components.
 import type { Metadata } from "next";
+import { ThemeProvider } from "next-themes";
 
 import Header from "@/components/layout/Header";
 // Import global styles.
@@ -26,12 +27,21 @@ export default function RootLayout({
 }) {
   return (
     // Set the language of the document to English.
-    <html lang="en">
+    // suppressHydrationWarning is added to support next-themes.
+    <html lang="en" suppressHydrationWarning>
       <body>
-        {/* Render the Header component. */}
-        <Header />
-        {/* Main content area for the pages. */}
-        <main className="mt-24 md:mt-20">{children}</main>
+        {/* ThemeProvider enables dark mode functionality. */}
+        <ThemeProvider
+          attribute="data-theme"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {/* Render the Header component. */}
+          <Header />
+          {/* Main content area with your class changes. */}
+          <main className="mt-[var(--header-height)]">{children}</main>
+        </ThemeProvider>
       </body>
     </html>
   );

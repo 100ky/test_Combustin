@@ -1,0 +1,134 @@
+/*
+ * Styles for AccountManagement component
+ * Contains animations and custom styles that complement Tailwind CSS.
+ */
+
+/* Animation for page load */
+.animate-on-load {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.5s ease-out,
+    transform 0.5s ease-out;
+}
+
+.loaded .animate-on-load {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered animation delay */
+.animate-on-load:nth-of-type(2) {
+  transition-delay: 0.1s;
+}
+
+/* Animation for adding/removing a social network item */
+.social-item {
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  max-height: 100px;
+  overflow: hidden;
+}
+
+.social-item.entering {
+  opacity: 0;
+  transform: translateY(-20px);
+  max-height: 0;
+}
+
+.social-item.removing {
+  opacity: 0;
+  transform: scale(0.9);
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  border-width: 0;
+}
+
+#add-social-btn {
+  transition: transform 0.2s ease-in-out;
+}
+
+#add-social-btn:hover {
+  transform: rotate(90deg) scale(1.1);
+}
+
+/* --- Dark Mode Overrides --- */
+[data-theme="dark"] .account-management-wrapper h1.text-gray-900 {
+  color: var(--foreground);
+}
+
+/* Card background, border, and shadow */
+[data-theme="dark"] .account-management-wrapper .shadow {
+  background-color: var(--background-muted);
+  box-shadow:
+    0 1px 3px 0 rgba(0, 0, 0, 0.5),
+    0 1px 2px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* Card titles and borders */
+[data-theme="dark"] .account-management-wrapper .border-b.border-gray-200 {
+  border-color: var(--blue);
+}
+
+/* Form labels */
+[data-theme="dark"] .account-management-wrapper label.text-gray-600 {
+  color: var(--foreground-muted);
+}
+
+/* General inputs */
+[data-theme="dark"] .account-management-wrapper input.bg-gray-50,
+[data-theme="dark"] .account-management-wrapper textarea.bg-gray-50 {
+  background-color: var(--background);
+  border-color: var(--blue);
+}
+
+[data-theme="dark"] .account-management-wrapper .text-gray-900 {
+  color: var(--foreground);
+}
+
+/* Read-only inputs */
+[data-theme="dark"] .account-management-wrapper input.bg-gray-200 {
+  background-color: var(--palette-bg-dark);
+  color: var(--foreground-muted);
+  border-color: var(--blue);
+}
+
+[data-theme="dark"] .account-management-wrapper input.text-gray-600[readonly] {
+  color: var(--foreground-muted);
+}
+
+/* Placeholders */
+[data-theme="dark"] .account-management-wrapper ::placeholder {
+  color: var(--foreground-muted);
+  opacity: 0.7;
+}
+
+/* Social Networks Section */
+[data-theme="dark"] .account-management-wrapper .social-item.bg-gray-50 {
+  background-color: var(--background);
+  border-color: var(--blue);
+}
+
+[data-theme="dark"] .account-management-wrapper .social-item .text-gray-800 {
+  color: var(--foreground);
+}
+
+[data-theme="dark"] .account-management-wrapper .text-gray-500 {
+  color: var(--foreground-muted);
+}
+
+[data-theme="dark"]
+  .account-management-wrapper
+  .social-item
+  button.text-gray-400 {
+  color: var(--foreground-muted);
+}
+
+[data-theme="dark"]
+  .account-management-wrapper
+  .social-item
+  button.text-gray-400:hover {
+  color: #ef4444;
+}

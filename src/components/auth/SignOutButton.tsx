@@ -17,11 +17,13 @@ export default function SignOutButton() {
       {/* Mobile version: icon-only button with a11y support */}
       <div className="block md:hidden">
         <button
-          className="p-2"
+          className="flex cursor-pointer items-center gap-2 rounded-lg px-3 py-3 hover:bg-[var(--background-muted)] hover:text-[var(--foreground-muted)]"
           aria-label={t("userPanel.signOut")}
           type="submit"
         >
           <ArrowRightStartOnRectangleIcon className="h-6 w-6" />
+
+          <span>{t("userPanel.signOut")}</span>
         </button>
       </div>
     </form>
