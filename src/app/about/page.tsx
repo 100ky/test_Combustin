@@ -7,7 +7,6 @@
  * Author: Garbage Collectors Headquarters
  * Date: July 2025
  */
-import { t } from "@/utils/translations";
 import { promises as fs } from "fs";
 import { marked } from "marked";
 import path from "path";
@@ -24,13 +23,10 @@ export default async function AboutPage() {
   const htmlContent = await marked(fileContent);
 
   return (
-    <div className="h-[calc(100vh-80px)] w-full">
+    <div className="h-[calc(100vh-var(--header-height))] w-full">
       <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold">{t("navigation.about")}</h1>
-        </div>
         <div
-          className="prose prose-lg mt-8"
+          className="prose prose-lg"
           dangerouslySetInnerHTML={{ __html: htmlContent }}
         />
       </div>

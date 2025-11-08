@@ -1,29 +1,3 @@
-Cílem tohoto projektu je vytvoření aplikace pro sběr a sdílení informací o spalování odpadů v České Republice.
+# Combustion INFO CZ
 
-## Hlavní zaměření
-
-- **Spalovny odpadů**: Projekt se soustředí na spalovny, včetně těch pro směsný odpad.
-- **Sběr dat**: Umožnit uživatelům shromažďovat a sdílet relevantní informace.
-- **Transparentnost**: Zpřístupnit data o spalovnách široké veřejnosti.
-
-## Klíčové funkce
-
-- **Evidence spaloven**:
-  - Udržování aktuálního seznamu spaloven.
-  - Zobrazení spaloven na interaktivní mapě.
-- **Detailní informace o spalovnách**:
-  - Kapacita
-  - Náklady na vybudování
-  - Použitá technologie
-  - Dodavatel technologie
-  - Investor a investovaná částka
-  - Fotografie
-  - Další variabilní atributy
-- **Interaktivní mapa**:
-  - Úvodní stránka aplikace.
-  - Zobrazení všech spaloven v ČR.
-  - Kontextová nápověda u každé spalovny.
-  - Proklik na stránku s detailními informacemi.
-- **Uživatelské role**:
-  - **Veřejná část**: Volně přístupné informace pro všechny návštěvníky.
-  - **Administrativní část**: Zabezpečená sekce pro přihlášené uživatele s oprávněním pro správu dat.
+Cílem tohoto projektu je vytvoření aplikace, která uživatelům umožní sběr a sdílení informací o spalování odpadů v České Republice. Hlavním tématem projektu jsou spalovny nejen směsných odpadů. Aplikace bude udržovat jejich seznam, a také zobrazení v mapě. U každé spalovny bude možné evidovat rozšiřitelný seznam atributů různých typů hodnot - např. kapacitu, náklady na vybudování, použitou technologii, atp. Každá spalovna bude mít také svoje souřadnice a v aplikaci bude možné zobrazit mapu České Republiky se všemi spalovnami a u každé z nich nabídnout kontextovou nápovědu se základními informacemi s proklikem na stránku s detailními informacemi. Stránka s detaily bude krom jiného obsahovat název, fotografii, kapacitu, investora, investovanou částku, použitou technologii, dodavatele technologie, a další variabilní obsah týkající se konkrétní spalovny. Úvodní stránkou celé aplikace bude právě mapa České Republiky se zobrazenými spalovnami. Aplikace bude rozdělena na veřejnou část, která bude zobrazovat všechny popsané informace a administrativní část, kde bude možné informace měnit a přidávat. Do administrativní části se uživatel bude muset přihlašovat a disponovat odpovídajícími oprávněními.
