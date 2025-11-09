@@ -2,7 +2,8 @@ import tseslint from "typescript-eslint";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import js from "@eslint/js";
 
-export default tseslint.config(
+/** @type {import('typescript-eslint').Config[]} */
+const config = [
   {
     ignores: [
       ".next/**",
@@ -14,9 +15,11 @@ export default tseslint.config(
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
-  nextVitals,
+  ...nextVitals,
   {
     // You can add custom rules here
     rules: {},
   },
-);
+];
+
+export default config;
