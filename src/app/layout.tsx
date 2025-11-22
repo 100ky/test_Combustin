@@ -1,6 +1,6 @@
 // Import necessary types and components.
 import type { Metadata } from "next";
-import { ThemeProvider } from "next-themes";
+import Providers from "@/app/Providers";
 
 import Header from "@/components/layout/Header";
 // Import global styles.
@@ -30,18 +30,13 @@ export default function RootLayout({
     // suppressHydrationWarning is added to support next-themes.
     <html lang="en" suppressHydrationWarning>
       <body>
-        {/* ThemeProvider enables dark mode functionality. */}
-        <ThemeProvider
-          attribute="data-theme"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <Providers>
           {/* Render the Header component. */}
           <Header />
+
           {/* Main content area with your class changes. */}
           <main className="mt-[var(--header-height)]">{children}</main>
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );

@@ -62,10 +62,5 @@
     "back": "Zpět",
     "save": "Uložit",
     "manageAccount": "Spravovat účet"
-  },
-  "signedOut": {
-    "sessionExpired": "Vaše relace vypršela",
-    "message": "Byli jste automaticky odhlášeni. Pro pokračování se můžete znovu přihlásit, nebo pokračovat na hlavní stránku bez přihlášení.",
-    "continue": "Pokračovat na hlavní stránku"
   }
 }

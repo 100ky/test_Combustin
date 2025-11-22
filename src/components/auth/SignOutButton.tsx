@@ -2,7 +2,7 @@ import Button from "@/components/ui/Button";
 
 import { ArrowRightStartOnRectangleIcon } from "@heroicons/react/24/outline";
 
-import { signOutCompletelyAction } from "@/lib/auth-actions";
+import { signOutCompletelyAction } from "@/lib/authActions";
 
 import { t } from "@/utils/translations";
 

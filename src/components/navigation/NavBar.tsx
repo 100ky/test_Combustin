@@ -28,37 +28,38 @@ export default function NavBar({ userPanel }: { userPanel?: React.ReactNode }) {
   return (
     // Element for the navigation bar.
     <div className="relative w-full">
+      {/* Desktop navigation menu. */}
+      <div className="flex flex-1 justify-center">
+        {/* Decorative vertical line. */}
+        <div className="mx-8 hidden w-px bg-[var(--background-muted)] lg:block"></div>
+
+        {/* Navigation links for desktop view. */}
+        <nav className="hidden items-center rounded-full border border-[var(--background-muted)] bg-[var(--background-muted)] px-2 py-1 shadow-inner md:flex">
+          {navItems.map((item, index) => (
+            <div key={item.href} className="flex items-center">
+              <NavItem
+                href={item.href}
+                label={item.label}
+                isActive={getIsActive(item.href)}
+              />
+              {/* Separator line between navigation items. */}
+              {index < navItems.length - 1 && (
+                <div className="mx-2 h-4 w-px bg-[var(--foreground)]"></div>
+              )}
+            </div>
+          ))}
+        </nav>
+
+        {/* Decorative vertical line. */}
+        <div className="mx-8 hidden w-px bg-[var(--background-muted)] lg:block"></div>
+
+        <div className="hidden w-12 items-center md:ml-2 md:flex lg:ml-0">
+          <ThemeToggle type="desktop" />
+        </div>
+      </div>
+      {/* Mobile hamburger menu button. */}
+
       <div className="flex max-w-7xl items-center md:px-2">
-        {/* Desktop navigation menu. */}
-        <div className="flex flex-1 justify-center">
-          {/* Decorative vertical line. */}
-          <div className="mx-8 hidden w-px bg-[var(--background-muted)] lg:block"></div>
-
-          {/* Navigation links for desktop view. */}
-          <nav className="hidden items-center rounded-full border border-[var(--background-muted)] bg-[var(--background-muted)] px-2 py-1 shadow-inner md:flex">
-            {navItems.map((item, index) => (
-              <div key={item.href} className="flex items-center">
-                <NavItem
-                  href={item.href}
-                  label={item.label}
-                  isActive={getIsActive(item.href)}
-                />
-                {/* Separator line between navigation items. */}
-                {index < navItems.length - 1 && (
-                  <div className="mx-2 h-4 w-px bg-[var(--foreground)]"></div>
-                )}
-              </div>
-            ))}
-          </nav>
-
-          {/* Decorative vertical line. */}
-          <div className="mx-8 hidden w-px bg-[var(--background-muted)] lg:block"></div>
-
-          <div className="hidden items-center md:ml-2 md:flex lg:ml-0">
-            <ThemeToggle type="desktop" />
-          </div>
-        </div>{" "}
-        {/* Mobile hamburger menu button. */}
         <div className="ml-auto pr-4 md:hidden">
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} // Toggles the mobile menu visibility.

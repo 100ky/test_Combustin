@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { updateAccount } from "@/lib/api";
+import { updateAccount } from "@/lib/account";
 import type { Account } from "@/types/account";
 
 /**

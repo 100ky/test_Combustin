@@ -1,5 +1,5 @@
 import AccountManagement from "@/components/account/AccountManagement";
-import { getAccount } from "@/lib/api";
+import { getAccount } from "@/lib/account";
 import { redirect } from "next/navigation";
 
 const AccountPage = async () => {

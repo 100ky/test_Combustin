@@ -1,10 +1,10 @@
-// Main page component for the incinerator map webapp
+// Home page component for the incinerator map webapp
 import MapWrapper from "@/components/map/MapWrapper";
 import { getIncinerators } from "@/lib/api";
 import type { Incinerator } from "@/types/incinerator";
 
 // Exported async component for Next.js
-export default async function Page() {
+export default async function HomePage() {
   // Fetch incinerator data using the new API layer
   const incinerators: Incinerator[] = await getIncinerators();
 

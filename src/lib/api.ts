@@ -1,6 +1,6 @@
-import { Incinerator, Building } from "@/types/incinerator";
-import type { Account } from "@/types/account";
-import { auth } from "@/auth";
+import type { Incinerator, Building } from "@/types/incinerator";
+import type { JWT } from "next-auth/jwt";
+import { API_BASE_URL, ORIGIN_URL } from "@/utils/env";
 
 /**
  * A base function for making API requests.
@@ -8,40 +8,39 @@ import { auth } from "@/auth";
  *
  * @param path The path to the API endpoint.
  * @param options The options for the fetch request.
- * @param accessToken If provided, indicates a client-side call that should go through the proxy.
+ * @param getServerToken The function to get the server token.
  * @returns The JSON response from the API.
  */
 export async function api<T>(
   path: string,
   options: RequestInit = {},
-  accessToken?: string,
+  getServerToken?: () => Promise<JWT | null>,
 ): Promise<T> {
   const headers = new Headers(options.headers);
   let fullApiUrl: string;
-  let token: string | undefined = accessToken;
+  let accessToken: string | null = null;
 
   // Determine if this is a client-side or server-side call.
-  const isClientSideCall =
-    !!process.env.NEXT_PUBLIC_ORIGIN_URL && typeof window !== "undefined";
+  const isClientSideCall = typeof window !== "undefined";
 
   if (isClientSideCall) {
     // Client-side calls use the proxy URL defined in environment variables.
-    fullApiUrl = `${process.env.NEXT_PUBLIC_ORIGIN_URL}${process.env.NEXT_PUBLIC_REMOTE_API_BASE_URL}${path}`;
+    fullApiUrl = `${ORIGIN_URL}${API_BASE_URL}${path}`;
   } else {
     // Server-side calls (e.g., from Server Actions) use the direct remote URL.
     fullApiUrl = `${process.env.REMOTE_API_BASE_URL}${path}`;
     // Get session and token on the server side if not explicitly passed.
-    if (!token) {
-      const session = await auth();
-      if (session?.accessToken) {
-        token = session.accessToken;
+    if (getServerToken) {
+      const token = await getServerToken();
+      if (token?.accessToken) {
+        accessToken = token.accessToken;
       }
     }
   }
 
   // Add authorization header if a token is available.
-  if (token) {
-    headers.set("Authorization", `Bearer ${token}`);
+  if (accessToken) {
+    headers.set("Authorization", `Bearer ${accessToken}`);
   }
 
   const res = await fetch(fullApiUrl, {
@@ -75,17 +74,11 @@ export async function api<T>(
 /**
  * Fetches all incinerators.
  */
-export async function getIncinerators(
-  accessToken?: string,
-): Promise<Incinerator[]> {
-  return api<Incinerator[]>(
-    "/incinerators",
-    {
-      method: "GET",
-      cache: "no-store",
-    },
-    accessToken,
-  );
+export async function getIncinerators(): Promise<Incinerator[]> {
+  return api<Incinerator[]>("/incinerators", {
+    method: "GET",
+    cache: "no-store",
+  });
 }
 
 /**
@@ -109,30 +102,5 @@ export async function getBuildingDetails(
   return api<Building>(`/buildings/${buildingId}`, {
     method: "GET",
     credentials: "omit",
-  });
-}
-
-/**
- * Fetches account details for the authenticated user. (Server-side only)
- */
-export async function getAccount(): Promise<Account> {
-  return api<Account>("/account", {
-    method: "GET",
-    cache: "no-store",
-  });
-}
-
-/**
- * Updates account details for the authenticated user. (Server-side only)
- */
-export async function updateAccount(
-  account: Partial<Account>,
-): Promise<Account> {
-  return api<Account>(`/account/${account.id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(account),
   });
 }

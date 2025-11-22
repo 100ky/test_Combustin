@@ -8,8 +8,6 @@ declare module "next-auth" {
       roles?: string[];
     } & DefaultSession["user"];
     expires: string;
-    accessToken?: string;
-    idToken?: string;
     error?: string;
   }
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, type FC, useCallback } from "react";
+import { useSession } from "next-auth/react";
 import type { Account } from "../../types/account";
 import { updateAccountAction } from "../../app/account/actions";
 
@@ -13,6 +14,7 @@ interface AccountManagementProps {
 }
 
 const AccountManagement: FC<AccountManagementProps> = ({ account }) => {
+  const { update } = useSession();
   const [isDirty, setIsDirty] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
@@ -77,6 +79,9 @@ const AccountManagement: FC<AccountManagementProps> = ({ account }) => {
       } else {
         throw new Error(result.error as string | undefined);
       }
+
+      // Force refresh token and revalidate session to reflect updated user properties present in the token (firstName, lastName, imageUrl)
+      await update({});
     } catch (error) {
       console.error("Failed to save account data:", error);
       setSaveError("Nepodařilo se uložit změny. Zkuste to prosím znovu.");

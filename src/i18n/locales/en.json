@@ -62,10 +62,5 @@
     "back": "Back",
     "save": "Save",
     "manageAccount": "Manage Account"
-  },
-  "signedOut": {
-    "sessionExpired": "Your session has expired",
-    "message": "You have been automatically signed out. You can sign in again to continue, or proceed to the main page without signing in.",
-    "continue": "Continue to the main page"
   }
 }

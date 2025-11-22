@@ -18,7 +18,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
      *
      * @see https://authjs.dev/reference/nextjs/callbacks#jwt
      */
-    async jwt({ token, account }) {
+    async jwt({ token, account, trigger }) {
       // On initial sign-in, store tokens from the account object.
       if (account) {
         if (
@@ -42,6 +42,11 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         return { ...token, error: "NoAccessToken" };
       }
 
+      // Manually trigger refreshToken.
+      if (trigger === "update") {
+        return await refreshToken(token);
+      }
+
       // If the token is still valid, return it.
       if (token.expiresAt && Date.now() < token.expiresAt * 1000) {
         return token;
@@ -59,8 +64,6 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
      * @see https://authjs.dev/reference/nextjs/callbacks#session
      */
     async session({ session, token }) {
-      session.accessToken = token.accessToken;
-      session.idToken = token.idToken;
       session.error = token.error;
 
       // Extract roles from the ID token
